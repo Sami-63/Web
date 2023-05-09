@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.__card {
+    border-radius: 1.5rem;
+    border: 2px solid black;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+}
+
+.__card2 {
+    border-radius: 1.5rem;
+    border: 2px solid black;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    font-weight: 800;
+}
