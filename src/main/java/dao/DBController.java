@@ -319,12 +319,14 @@ public class DBController {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			
-			rs.next();
-			user.setName(rs.getString(1));
-			user.setUsername(rs.getString(2));
-			user.setPassword(rs.getString(3));
-			user.setEmail(rs.getString(4));
-			user.setUserType(rs.getString(5));
+			if(rs.next()) {
+				user.setName(rs.getString(1));
+				user.setUsername(rs.getString(2));
+				user.setPassword(rs.getString(3));
+				user.setEmail(rs.getString(4));
+				user.setUserType(rs.getString(5));
+			}
+			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -470,6 +472,65 @@ public class DBController {
 		return courseList;
 	}
 	
+	public List getAssignedCourses(String username) {
+		String sql = "select course.course_id, title, description \n"
+				+ "from course, teaches \n"
+				+ "where course.course_id = teaches.course_id and teaches.username = ?;";
+		List<Course> courseList = new ArrayList<>();
+		
+		try {
+			makeConn();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				String id = rs.getString(1);
+				String title = rs.getString(2);
+				String description = rs.getString(3);
+				Course cs = new Course(id, title, description);
+				courseList.add(cs);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return courseList;
+	}
+	
+	public List getNotAssigedTeacher(String courseId) {
+		String sql = "select * from users\n"
+				+ "where user_type = 'teacher' and username not in \n"
+				+ "(\n"
+				+ "    select users.username from users, teaches \n"
+				+ "    where teaches.username = users.username and course_id = ?\n"
+				+ ");";
+		
+		List<User> teacherList = new ArrayList<>();
+		
+		try {
+			makeConn();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, courseId);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString(1);
+				String username = rs.getString(2);
+				User user = new User(name, username, "", "", "Student");
+				teacherList.add(user);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return teacherList;
+	}
+	
 	public static void main(String[] args) {
 //		System.out.println("Lets start");
 //		try {
@@ -534,25 +595,25 @@ public class DBController {
 //			System.out.println(m.getKey() + " - " + m.getValue());
 //		}
 		
-//		List<User> list = dbc.getEnrolledStudents("101");
-//		for(User c : list) {
-//			System.out.println("name : " + c.getName() + " | username : " + c.getUsername());
-//			System.out.println("email: " + c.getEmail());
+		List<User> list = dbc.getNotAssigedTeacher("101");
+		for(User c : list) {
+			System.out.println("name : " + c.getName() + " | username : " + c.getUsername());
+			System.out.println("email: " + c.getEmail());
+			System.out.println("");
+		}
+//		List<Course> list = dbc.getAssignedCourses("alom");
+//		for(Course c : list) {
+//			System.out.println("id : " + c.getCourseId() + " | title : " + c.getTitle());
+//			System.out.println("description: " + c.getDescription());
 //			System.out.println("");
 //		}
-		List<Course> list = dbc.getRegisteredCourses("babul");
-		for(Course c : list) {
-			System.out.println("id : " + c.getCourseId() + " | title : " + c.getTitle());
-			System.out.println("description: " + c.getDescription());
-			System.out.println("");
-		}
-		System.out.println("---------------------");
-		List<Course> list1 = dbc.getNotRegisteredCourses("babul");
-		for(Course c : list1) {
-			System.out.println("id : " + c.getCourseId() + " | title : " + c.getTitle());
-			System.out.println("description: " + c.getDescription());
-			System.out.println("");
-		}
+//		System.out.println("---------------------");
+//		List<Course> list1 = dbc.getNotRegisteredCourses("babul");
+//		for(Course c : list1) {
+//			System.out.println("id : " + c.getCourseId() + " | title : " + c.getTitle());
+//			System.out.println("description: " + c.getDescription());
+//			System.out.println("");
+//		}
 //		Course c = dbc.getCourse("101");
 //		System.out.println(c.getCourseId());
 //		System.out.println(c.getTitle());

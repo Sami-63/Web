@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DBController;
+
 /**
  * Servlet implementation class Teachers
  */
@@ -29,7 +31,9 @@ public class Teachers extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// get all teacher and set it to attribute and forward
-		request.getRequestDispatcher("pages/AllCourse.jsp").forward(request, response);
+		DBController dbc = new DBController();
+		request.setAttribute("teachers", dbc.getAllTeachers());
+		request.getRequestDispatcher("pages/Teachers.jsp").forward(request, response);
 	}
 
 	/**

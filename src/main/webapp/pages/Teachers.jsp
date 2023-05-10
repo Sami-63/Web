@@ -64,30 +64,6 @@
 		</div>
 	</div>
 
-	<!-- Course section -->
-	<div class="container-fluid mx-5" style="margin-top: 4rem">
-		<h1 class="display-5 my-2" style="padding-left: 2rem">
-			All courses
-		</h1>
-		<div class="row">
-			<c:forEach var="course" items="${requestScope.courses}" >
-				<div class="col-3 mx-5 my-4 __card">
-					<a href="Course?courseId=${course.getCourseId() }" style="margin:0; padding:0; text-decoration:none; color:black;"> ${course.getTitle() } </a>
-				</div>
-			</c:forEach>
-			
-			<!-- 
-			<div class="col-3 mx-5 my-4 __card">Science</div>
-			<div class="col-3 mx-5 my-4 __card">Statistics</div>
-			<div class="col-3 mx-5 my-4 __card">Programming</div>
-			<div class="col-3 mx-5 my-4 __card">Chemistry</div>
-			<div class="col-3 mx-5 my-4 __card">Biology</div>
-			<div class="col-3 mx-5 my-4 __card">Physics</div>
-			<div class="col-3 mx-5 my-4 __card">English</div>
-			<div class="col-3 mx-5 my-4 __card">jshakjhs</div>
-			 -->
-		</div>
-	</div>
 	<!-- Teacher section -->
 	<div class="container-fluid mx-5" style="margin-top: 4rem">
 		<h1 class="display-5 my-2" style="padding-left: 2rem">Our

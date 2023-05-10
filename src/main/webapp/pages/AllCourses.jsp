@@ -50,7 +50,7 @@
 			</div>
 		</div>
 	</nav>
-
+	
 	<!-- Hero section -->
 	<div class="p-5 text-center bg-image rounded-3"
 		style="height: 400px; background-color: rgba(0, 0, 0, 0.2)">
@@ -85,31 +85,6 @@
 			<div class="col-3 mx-5 my-4 __card">Physics</div>
 			<div class="col-3 mx-5 my-4 __card">English</div>
 			<div class="col-3 mx-5 my-4 __card">jshakjhs</div>
-			 -->
-		</div>
-	</div>
-	<!-- Teacher section -->
-	<div class="container-fluid mx-5" style="margin-top: 4rem">
-		<h1 class="display-5 my-2" style="padding-left: 2rem">Our
-			Teachers</h1>
-		<div class="row">
-			<c:forEach var="teacher" items="${requestScope.teachers}" >
-				<div class="col-3 mx-5 my-4 __card2">
-					<a href="Profile?username=${teacher.getUsername() }" style="margin:0; padding:0; text-decoration:none; color:black;">
-				 		${teacher.getName() }
-				 	</a>
-				 </div>
-			</c:forEach>
-			<!-- 
-			<div class="col-3 mx-5 my-4 __card2">Math</div>
-			<div class="col-3 mx-5 my-4 __card2">Science</div>
-			<div class="col-3 mx-5 my-4 __card2">Statistics</div>
-			<div class="col-3 mx-5 my-4 __card2">Programming</div>
-			<div class="col-3 mx-5 my-4 __card2">Chemistry</div>
-			<div class="col-3 mx-5 my-4 __card2">Biology</div>
-			<div class="col-3 mx-5 my-4 __card2">Physics</div>
-			<div class="col-3 mx-5 my-4 __card2">English</div>
-			<div class="col-3 mx-5 my-4 __card2">jshakjhs</div>
 			 -->
 		</div>
 	</div>

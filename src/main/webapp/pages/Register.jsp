@@ -60,6 +60,30 @@
 						<label for="password">Password</label> <input type="password"
 							class="form-control" id="password" placeholder="Enter password" name="password"/>
 					</div>
+					<div class="form-check">
+		              <input
+		                class="form-check-input"
+		                type="radio"
+		                name="usertype"
+		                value="student"
+		                id="flexRadioDefault1"
+		              />
+		              <label class="form-check-label" for="flexRadioDefault1">
+		                as Student
+		              </label>
+		            </div>
+		            <div class="form-check">
+		              <input
+		                class="form-check-input"
+		                type="radio"
+		                name="usertype"
+		                value="teacher"
+		                id="flexRadioDefault2"
+		              />
+		              <label class="form-check-label" for="flexRadioDefault2">
+		                as Teacher
+		              </label>
+		            </div>
 					<button type="submit" class="btn btn-primary">Register</button>
 				</form>
 			</div>

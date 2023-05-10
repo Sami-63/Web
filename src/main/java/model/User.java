@@ -9,6 +9,7 @@ public class User {
 	
 	public User() {
 		super();
+		name = "";
 	}
 	
 	public boolean isNull() {
@@ -57,5 +58,10 @@ public class User {
 		this.userType = userType;
 	}
 	
+	public void show() {
+		System.out.println("Name : " + this.name);
+		System.out.println("Username : " + this.username + " | Type : " + this.userType);
+		System.out.println("Email " + this.email);
+	}
 	
 }

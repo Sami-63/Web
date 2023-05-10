@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,22 +35,43 @@ public class Course extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String course_id = request.getParameter("courseId");
-//		System.out.println("-> " + course_id );
+		System.out.println("-> " + course_id );
 		
 		if(course_id==null || course_id.equals("")) {
+			System.out.println("redirecting to all courses");
 			request.setAttribute("courses", dbc.getAllCourses());
-			request.getRequestDispatcher("pages/AllCourse.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/AllCourses.jsp").forward(request, response);
 		}else {
 			// get course
 			model.Course course = dbc.getCourse(course_id);
+			request.setAttribute("courseId", course.getCourseId());
 			request.setAttribute("courseTitle", course.getTitle());
 			request.setAttribute("courseDescription", course.getDescription());
 			request.setAttribute("assignedTeachers", dbc.getCourseTeachers(course_id));
 			
 			User user = (User)request.getSession().getAttribute("user");
+			if(user == null)
+				System.out.println("user is null");
+			else
+				user.show();
+			
 			if(user == null);
-			else if(user.getUserType().equals("Teachers") || user.getUserType().equals("Admin")){
+			else if(user.getUserType().equals("teacher")){
 				request.setAttribute("entolledStudents", dbc.getEnrolledStudents(course_id));
+			}else if(user.getUserType().equals("student")) {
+				
+				boolean flag = false;
+				List<model.Course> courseList = dbc.getStudentCourses(user.getUsername());
+				for(model.Course c : courseList)
+					if(c.getCourseId().equals(course_id)) {
+						flag = true;
+						break;
+					}
+						
+				request.setAttribute("enrolled", flag);
+			}else if(user.getUserType().equals("admin")) {
+				request.setAttribute("entolledStudents", dbc.getEnrolledStudents(course_id));
+				request.setAttribute("otherTeachers", dbc.getNotAssigedTeacher(course_id));
 			}
 			
 			request.getRequestDispatcher("pages/Course.jsp").forward(request, response);

@@ -36,17 +36,25 @@ public class Home extends HttpServlet {
 		if(user == null) {
 			request.setAttribute("courses", dbc.getAllCourses());
 			request.setAttribute("teachers", dbc.getAllTeachers());
-			request.getRequestDispatcher("pages/Home.jsp").forward(request, response);			
-		}else if(user.getUserType().equals("Student")) {
+			request.getRequestDispatcher("pages/Home.jsp").forward(request, response);		
+			
+		}else if(user.getUserType().equals("student")) {
 
 			request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
 			request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
 			request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 			
-		}else if(user.getUserType().equals("Teacher")) {
+		}else if(user.getUserType().equals("teacher")) {
+			
+			request.setAttribute("assignedCourses", dbc.getAssignedCourses(user.getUsername()));
 			request.getRequestDispatcher("pages/MyCourses.jsp").forward(request, response);
-		}else if(user.getUserType().equals("Admin")) {
-			request.getRequestDispatcher("pages/Admin.jsp").forward(request, response);
+			
+		}else if(user.getUserType().equals("admin")) {
+			
+			request.setAttribute("courses", dbc.getAllCourses());
+			request.setAttribute("teachers", dbc.getAllTeachers());
+			request.getRequestDispatcher("pages/Home.jsp").forward(request, response);
+			
 		}else {
 			request.getRequestDispatcher("pages/Error.jsp").forward(request, response);
 		}

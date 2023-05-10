@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DBController;
 import model.User;
 
 /**
@@ -34,9 +35,16 @@ public class RedirectLogin extends HttpServlet {
 		if(user == null || user.isNull()) {
 			request.getRequestDispatcher("pages/Login.jsp").forward(request, response);
 		}else if(user.getUserType().equals("Student")) {
-			// redirect to my learing
+			
+			DBController dbc = new DBController();
+			request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
+			request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
+			request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 		}else if(user.getUserType().equals("Teachers")) {
-			// redirect to my courses
+			
+			DBController dbc = new DBController();
+			request.setAttribute("assignedCourses", dbc.getAssignedCourses(user.getUsername()));
+			request.getRequestDispatcher("pages/MyCourses.jsp").forward(request, response);
 		}else if(user.getUserType().equals("Admin")) {
 			// redirect to admin portal
 		}else {

@@ -13,7 +13,6 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
-  </head>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg">
@@ -33,12 +32,21 @@
 					</li>
 				</ul>
 
-				<form action="RedirectLogin" method="post">
-					<button class="btn btn-primary mx-3">Login</button>
-				</form>
-				<form action="RedirectRegister" method="post">
-					<button class="btn btn-outline-primary">Register</button>
-				</form>
+				
+				<c:if test="${sessionScope.user == null }">
+					<form action="RedirectLogin" method="post">
+						<button class="btn btn-primary mx-3">Login</button>
+					</form>
+					<form action="RedirectRegister" method="post">
+						<button class="btn btn-outline-primary">Register</button>
+					</form>
+				</c:if>
+				
+				<c:if test="${sessionScope.user != null }">
+					<form action="Logout" method="post">
+						<button class="btn btn-outline-primary">Logout</button>
+					</form>
+				</c:if>
 			</div>
 		</div>
 	</nav>
@@ -51,6 +59,48 @@
         <p>
           ${requestScope.courseDescription }
         </p>
+        
+        
+        <c:if test="${ sessionScope.user != null &&  sessionScope.user.getUserType() == 'admin'}">
+	        <!-- <div>
+	        	<form action="RedirectTeacherAssign?course_id=${requestScope.courseId }" method="post">
+					<button class="btn btn-success">Assign Teacher</button>
+				</form>
+	        </div>
+	        -->
+	        
+	        <div style="margin: 2rem 10rem; width: 60%">
+	          <div>
+	            <h3 style="padding-top: 5rem">Other Teachers</h3>
+	            <ul class="list-group">
+	            	<c:forEach var="teacher" items="${otherTeachers }">
+	            		<li
+			                class="list-group-item"
+			                style="
+			                  display: flex;
+			                  justify-content: space-between;
+			                  align-items: center;
+			                "
+			              >
+			                ${teacher.getName() }
+			                <form action="AssignTeacher?courseId=${ requestScope.courseId }&username=${teacher.getUsername() }" method="post">
+			                  <button type="submit" class="btn btn-success">Assign Teacher</button>
+			                </form>
+			              </li>
+	            	</c:forEach>
+	            </ul>
+	          </div>
+	        </div>
+        </c:if>
+        
+        <c:if test="${ requestScope.enrolled == false }">
+	        <div>
+	        	<form action="EnrollCourse?courseId=${requestScope.courseId }" method="post">
+					<button class="btn btn-success">Enroll Course</button>
+				</form>
+	        </div>
+        </c:if>
+        
       </div>
       <div class="col-2" style="margin-right: 50px">
         <div>
@@ -72,7 +122,7 @@
              -->
           </ul>
         </div>
-		<c:if test="${ sessionScope.user != null &&  ( sessionScope.user.getUserType == 'Teacher' || sessionScope.user.getUserType == 'Admin')}">
+		<c:if test="${ sessionScope.user != null &&  ( sessionScope.user.getUserType() == 'teacher' || sessionScope.user.getUserType() == 'admin')}">
         	<div>
 	          <h3 style="padding-top: 5rem">Enrolled Students</h3>
 	          <ul class="list-group">
