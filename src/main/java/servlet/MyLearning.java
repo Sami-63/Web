@@ -16,37 +16,42 @@ import model.User;
 @WebServlet("/MyLearning")
 public class MyLearning extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private DBController dbc;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MyLearning() {
-        super();
-        dbc = new DBController();
-        // TODO Auto-generated constructor stub
-    }
+	private DBController dbc;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public MyLearning() {
+		super();
+		dbc = new DBController();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		User user = (User)request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 		System.out.println(user == null);
 		user.show();
-		
-		if(user.getUserType().equals("student")) {
+
+		if (user.getUserType().equals("student")) {
 			request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
 			request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
 			request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 		}
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

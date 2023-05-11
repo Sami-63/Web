@@ -16,39 +16,44 @@ import model.User;
 @WebServlet("/Profile")
 public class Profile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      private DBController dbc;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Profile() {
-        super();
-        dbc = new DBController();
-        // TODO Auto-generated constructor stub
-    }
+	private DBController dbc;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Profile() {
+		super();
+		dbc = new DBController();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = (String) request.getParameter("username");
 		User user = dbc.getUser(username);
 		System.out.println("-> " + username);
-		
+
 		request.setAttribute("name", user.getName());
 		request.setAttribute("username", user.getUsername());
 		request.setAttribute("email", user.getEmail());
 		request.setAttribute("usertype", user.getUserType());
-		
+
 		request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		doGet(request, response);
+		// doGet(request, response);
 	}
 
 }
