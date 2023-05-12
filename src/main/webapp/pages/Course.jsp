@@ -122,7 +122,7 @@
              -->
           </ul>
         </div>
-		<c:if test="${ sessionScope.user != null &&  ( sessionScope.user.getUserType() == 'teacher' || sessionScope.user.getUserType() == 'admin')}">
+		<c:if test="${ sessionScope.user != null &&   sessionScope.user.getUserType() == 'teacher' || sessionScope.user.getUserType() == 'admin'}">
         	<div>
 	          <h3 style="padding-top: 5rem">Enrolled Students</h3>
 	          <ul class="list-group">
