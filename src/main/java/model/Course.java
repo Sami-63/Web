@@ -1,9 +1,9 @@
 package model;
 
 public class Course {
-	private String courseId;
-	private String title;
-	private String description;
+	private String courseId = "";
+	private String title = "";
+	private String description = "";
 
 	public Course() {
 	}
@@ -12,6 +12,10 @@ public class Course {
 		this.courseId = courseId;
 		this.title = title;
 		this.description = description;
+	}
+
+	public boolean isNull() {
+		return courseId.equals("");
 	}
 
 	public String getCourseId() {

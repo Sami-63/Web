@@ -142,7 +142,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
           </ul>
         </div>
         <c:if
-          test="${ sessionScope.user != null &&  ( sessionScope.user.getUserType() == 'teacher' || sessionScope.user.getUserType() == 'admin')}"
+          test="${ sessionScope.user != null &&   sessionScope.user.getUserType() == 'teacher' || sessionScope.user.getUserType() == 'admin'}"
         >
           <div>
             <h3 style="padding-top: 5rem">Enrolled Students</h3>
