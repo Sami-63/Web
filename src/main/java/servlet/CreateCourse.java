@@ -31,6 +31,9 @@ public class CreateCourse extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("in create COurse");
+		
 		String courseId = request.getParameter("courseId");
 		String courseTitle = request.getParameter("courseTitle");
 		String courseDescription = request.getParameter("courseDescription");

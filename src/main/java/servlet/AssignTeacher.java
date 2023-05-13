@@ -38,6 +38,12 @@ public class AssignTeacher extends HttpServlet {
 		dbc.assignTeacherToCourse(username, courseId);
 		request.setAttribute("entolledStudents", dbc.getEnrolledStudents(courseId));
 		request.setAttribute("otherTeachers", dbc.getNotAssigedTeacher(courseId));
+		
+		model.Course course = dbc.getCourse(courseId);
+		request.setAttribute("courseId", course.getCourseId());
+		request.setAttribute("courseTitle", course.getTitle());
+		request.setAttribute("courseDescription", course.getDescription());
+		request.setAttribute("assignedTeachers", dbc.getCourseTeachers(courseId));
 		request.getRequestDispatcher("/pages/Course.jsp").forward(request, response);
 	}
 

@@ -88,7 +88,9 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
           </div>
         </c:forEach>
 
-        <c:if test="${ sessionScope.user != null && sessionScope.user.getUserType() == 'admin'}">
+        <c:if
+          test="${ sessionScope.user != null && sessionScope.user.getUserType() == 'admin'}"
+        >
           <div class="col-3 mx-5 my-4 __card">
             <a
               href="RedirectCreateCourse"

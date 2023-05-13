@@ -349,10 +349,11 @@ public class DBController {
 			ps.setString(1, course_id);
 			ResultSet rs = ps.executeQuery();
 
-			rs.next();
-			course.setCourseId(rs.getString(1));
-			course.setTitle(rs.getString(2));
-			course.setDescription(rs.getString(3));
+			if(rs.next()) {
+				course.setCourseId(rs.getString(1));
+				course.setTitle(rs.getString(2));
+				course.setDescription(rs.getString(3));
+			}
 
 		} catch (Exception e) {
 			// TODO: handle exception

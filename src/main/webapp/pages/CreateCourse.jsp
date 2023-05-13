@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%> <%@ page isELIgnored="false" %> <%@taglib
+uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,12 +39,21 @@ pageEncoding="UTF-8"%>
             </li>
           </ul>
 
-          <form action="RedirectLogin" method="post">
-            <button class="btn btn-primary mx-3">Login</button>
-          </form>
-          <form action="RedirectRegister" method="post">
-            <button class="btn btn-outline-primary">Register</button>
-          </form>
+          <c:if test="${sessionScope.user == null }">
+            <form action="RedirectLogin" method="post">
+              <button class="btn btn-primary mx-3">Login</button>
+            </form>
+            <form action="RedirectRegister" method="post">
+              <button class="btn btn-outline-primary">Register</button>
+            </form>
+          </c:if>
+
+          <c:if test="${sessionScope.user != null }">
+            <form action="Logout" method="post">
+              <button class="btn btn-outline-primary">Logout</button>
+            </form>
+          </c:if>
+          
         </div>
       </div>
     </nav>

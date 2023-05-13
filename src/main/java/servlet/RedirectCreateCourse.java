@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DBController;
-import model.User;
-
 /**
  * Servlet implementation class RedirectCreateCourse
  */
@@ -30,36 +27,8 @@ public class RedirectCreateCourse extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("in create course");
-		User user = (User)request.getSession().getAttribute("user");
-		DBController dbc = new DBController();
-		
-		if(user == null) {
-			request.setAttribute("courses", dbc.getAllCourses());
-			request.setAttribute("teachers", dbc.getAllTeachers());
-			request.getRequestDispatcher("pages/Home.jsp").forward(request, response);		
-			
-		}else if(user.getUserType().equals("student")) {
-
-			request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
-			request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
-			request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
-			
-		}else if(user.getUserType().equals("teacher")) {
-			
-			request.setAttribute("assignedCourses", dbc.getAssignedCourses(user.getUsername()));
-			request.getRequestDispatcher("pages/MyCourses.jsp").forward(request, response);
-			
-		}else if(user.getUserType().equals("admin")) {
-			
-			request.setAttribute("courseId", "");
-			request.setAttribute("courseTitle", "");
-			request.setAttribute("courseDescription", "");
-			request.getRequestDispatcher("pages/CreateCourse	.jsp").forward(request, response);
-			
-		}else {
-			request.getRequestDispatcher("pages/Error.jsp").forward(request, response);
-		}
+		System.out.println("in creatw course ");
+		request.getRequestDispatcher("pages/CreateCourse.jsp").forward(request, response);
 	}
 
 	/**
