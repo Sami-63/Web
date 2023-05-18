@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+:root{
+    --radius : 4vh;
+    --background : rgba(0, 0, 0, .83);
+    --inputBackground : rgb(43, 44, 46);
+    --clickBackground : rgba(21, 21, 23, .7);
+    --clickBackgroundHover : rgb(0,0,0);
+    --linkText : rgba(255, 255, 255, .6);
+    --linkTextHover : white;
+    --transition : all .3s ease;
+    --bigTitle : rgba(255, 255, 255, .85);
+    --buttonbackground : rgb(1, 68, 113);
+    --buttonbackgroundHover : rgb(2, 112, 185);
+    --remToVH : 2.8vh;
+    --bigtitleBackground : rgba(0,0,0,.8);
+}  
+
+.box h2{
+    margin-bottom: 2vh;
+}
+
+.box {
+    padding: 8.5vh 15vh 10vh;
+}
+
+.row{
+    display: flex;
+    gap: 2vh;
+}
+
+.row p {
+    font-size: 3vh;
+    color: var(--bigTitle);
+}

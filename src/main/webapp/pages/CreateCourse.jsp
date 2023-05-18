@@ -53,7 +53,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
               <button class="btn btn-outline-primary">Logout</button>
             </form>
           </c:if>
-          
         </div>
       </div>
     </nav>

@@ -132,13 +132,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 </a>
               </li>
             </c:forEach>
-            <!-- 
-            <li class="list-group-item">An active item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-             -->
           </ul>
         </div>
         <c:if
@@ -151,15 +144,20 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 var="student"
                 items="${requestScope.entolledStudents }"
               >
-                <li class="list-group-item">${student.getName() }</li>
+                <li class="list-group-item">
+                  <a
+                    href="Profile?username=${student.getUsername() }"
+                    style="
+                      margin: 0;
+                      padding: 0;
+                      text-decoration: none;
+                      color: black;
+                    "
+                  >
+                    ${student.getName() }
+                  </a>
+                </li>
               </c:forEach>
-              <!-- 
-	            <li class="list-group-item">An active item</li>
-	            <li class="list-group-item">A second item</li>
-	            <li class="list-group-item">A third item</li>
-	            <li class="list-group-item">A fourth item</li>
-	            <li class="list-group-item">And a fifth one</li>
-	            -->
             </ul>
           </div>
         </c:if>

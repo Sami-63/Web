@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBController;
 import model.User;
@@ -31,19 +32,28 @@ public class Register extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("-> in register");
+		
 		String name = request.getParameter("name");
 		String username = request.getParameter("name");
 		String email = request.getParameter("name");
 		String password = request.getParameter("name");
 		String usertype = request.getParameter("usertype");
 
+		if(name == null || username == null || email == null || password == null || usertype == null) {
+			request.getRequestDispatcher("RedirectRegister").forward(request, response);
+			return;
+		}
+		
 		DBController dbc = new DBController();
 		User user = dbc.getUser(username);
 		if (user == null || user.isNull()) {
 			dbc.addUser(name, username, password, email, usertype);
 
 			user = dbc.getUser(username);
+			HttpSession session = request.getSession(false);
+			session.setAttribute("user", user);
+			
 			if (user.getUserType().equals("student")) {
 
 				request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
