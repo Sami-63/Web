@@ -57,7 +57,13 @@ public class Login extends HttpServlet {
 			}
 
 		} else {
-			request.setAttribute("loginFail", true);
+			User user = dbc.getUser(username);
+			request.setAttribute("username", username);
+			user.show();
+			if(user.isNull())
+				request.setAttribute("loginFailMessage", "username doesn't exists");
+			else
+				request.setAttribute("loginFailMessage", "incorrect password");
 			request.getRequestDispatcher("RedirectLogin").forward(request, response);
 		}
 	}

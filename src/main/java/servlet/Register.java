@@ -35,19 +35,41 @@ public class Register extends HttpServlet {
 		System.out.println("-> in register");
 		
 		String name = request.getParameter("name");
-		String username = request.getParameter("name");
-		String email = request.getParameter("name");
-		String password = request.getParameter("name");
+		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
 		String usertype = request.getParameter("usertype");
 
-		if(name == null || username == null || email == null || password == null || usertype == null) {
+		System.out.println("username -> " + username + " | \n");
+		System.out.println("name -> " + name  + " | \n");
+		System.out.println("email -> " + email  + " | \n");
+		System.out.println("password -> " + password  + " | \n");
+		System.out.println("usertype -> " + usertype  + " | \n");
+		
+		
+		if(name == null || username == null || email == null || password == null || usertype == null || 
+			name.equals("") || username.equals("") || email.equals("") || password.equals("") || usertype.equals("")) {
+			
+			request.setAttribute("username", username);
+			request.setAttribute("email", email);
+			request.setAttribute("name", name);
+			
 			request.getRequestDispatcher("RedirectRegister").forward(request, response);
 			return;
 		}
 		
 		DBController dbc = new DBController();
 		User user = dbc.getUser(username);
-		if (user == null || user.isNull()) {
+		boolean emailError = dbc.isEmailExists(email);
+			
+		user.show();
+		
+		System.out.println("email error -> " + emailError);
+		System.out.println("user == null -> " + (user == null));
+		System.out.println("user.isNull() -> " + (user.isNull()));
+	
+		if ((user == null || user.isNull()) && emailError == false) {
+			System.out.println("user banaitesi");
 			dbc.addUser(name, username, password, email, usertype);
 
 			user = dbc.getUser(username);
@@ -75,6 +97,13 @@ public class Register extends HttpServlet {
 				request.getRequestDispatcher("pages/Error.jsp").forward(request, response);
 			}
 		} else {
+			request.setAttribute("username", username);
+			request.setAttribute("email", email);
+			request.setAttribute("name", name);
+			if(emailError)
+				request.setAttribute("registerEmailFail", "This email is already registered by another user");
+			if( user.isNull() == false)
+				request.setAttribute("registerUsernameError", "Username already exixts!");
 			request.getRequestDispatcher("pages/Register.jsp").forward(request, response);
 		}
 

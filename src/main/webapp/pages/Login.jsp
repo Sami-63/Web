@@ -43,12 +43,19 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <form action="Login" method="post">
           <div class="input-row">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" />
+            <input type="text" id="username" name="username" value="${requestScope.username }"/>
           </div>
           <div class="input-row">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" />
+            
+            <c:if test="${requestScope.loginFailMessage != null }">
+	          	<div class="error">
+	          		<p>*${requestScope.loginFailMessage}</p>
+	        	</div>
+          	</c:if>
           </div>
+          
           <button type="submit" class="submit-login"><p>Login</p></button>
         </form>
       </div>

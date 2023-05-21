@@ -60,9 +60,11 @@ public class Course extends HttpServlet {
 			if (user == null)
 				;
 			else if (user.getUserType().equals("teacher")) {
+				System.out.println("in course - teacher");
 				request.setAttribute("entolledStudents", dbc.getEnrolledStudents(course_id));
+				request.setAttribute("showEnrolledStudents", dbc.isTeachersCourse(user.getUsername(), course_id));
 			} else if (user.getUserType().equals("student")) {
-
+				System.out.println("in course - student");
 				boolean flag = false;
 				List<model.Course> courseList = dbc.getStudentCourses(user.getUsername());
 				for (model.Course c : courseList)
@@ -73,8 +75,10 @@ public class Course extends HttpServlet {
 
 				request.setAttribute("enrolled", flag);
 			} else if (user.getUserType().equals("admin")) {
+				System.out.println("in course - admin");
 				request.setAttribute("entolledStudents", dbc.getEnrolledStudents(course_id));
 				request.setAttribute("otherTeachers", dbc.getNotAssigedTeacher(course_id));
+				request.setAttribute("showEnrolledStudents", true);
 			}
 
 			request.getRequestDispatcher("pages/Course.jsp").forward(request, response);

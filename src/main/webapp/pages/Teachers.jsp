@@ -6,7 +6,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <head>
     <meta charset="UTF-8" />
     <title>Home</title>
-    <link rel="stylesheet" href="css/Home.css" />
+    <link rel="stylesheet" href="css/Home2.css" />
   </head>
   <body>
     <nav class="container">

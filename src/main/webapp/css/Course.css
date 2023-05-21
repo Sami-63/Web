@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+:root{
+    --radius : 4vh;
+    --background : rgba(0, 0, 0, .83);
+    --inputBackground : rgb(43, 44, 46);
+    --clickBackground : rgba(21, 21, 23, .7);
+    --clickBackgroundHover : rgb(0,0,0);
+    --linkText : rgba(255, 255, 255, .6);
+    --linkTextHover : white;
+    --transition : all .3s ease;
+    --bigTitle : rgba(255, 255, 255, .85);
+    --buttonbackground : rgb(1, 68, 113);
+    --buttonbackgroundHover : rgb(2, 112, 185);
+    --remToVH : 2.8vh;
+    --bigtitleBackground : rgba(0,0,0,.8);
+}   
+
+
+
+
+
+p{
+    cursor: default;
+}
+
+.screen{
+    display: flex;
+    padding: 4vh 10vh;
+    width: 100%;
+    justify-content: center;
+}
+
+.child-screen{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    /* align-items: center; */
+}
+
+.left{
+    width: 65%;
+    border-right: 1px solid white;
+    padding:0 10vh 0 5vh;
+    gap: 4vh;    
+}
+
+.left p{
+    color: white;
+}
+
+.left p.name{
+    border-left: 2px solid white;
+    padding: 3vh;
+    font-size: 6vh;
+}
+
+.left p.description{
+    padding: 3vh 3.5vh;
+    border-radius: var(--radius);
+    text-align: justify;
+    background-color: var(--clickBackground);
+    font-size: 3vh;
+    line-height: 4.5vh;
+}
+
+.left li{
+    cursor: default;
+}
+
+.right{
+    width: 35%;
+    padding: 0 5vh 0 10vh;
+    gap: 4vh;
+}
+
+.scroll {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* max-height: 50vh; */
+    /* align-items: center; */
+    border: 2px solid black;
+    border-radius: var(--radius);
+    padding: 5vh;
+    /* color: white; */
+    gap: 2vh;
+}
+
+.right .scroll{
+    min-width: 48vh;
+}
+
+.scroll h3{
+    color: white;
+    font-size: 4.5vh;
+    /* padding: 5vh 5vh 2vh 2vh; */
+    padding-bottom: 2vh;
+    padding-left: 1vh;
+    border-bottom: 2px solid black;
+}
+
+.scroll .list {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.right .scroll .list {
+    gap: 0vh;
+}
+
+.scroll .list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--clickBackground);
+    padding: 1vh 1vh 1vh 1.2vh;
+}
+
+.right .scroll .list  li{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    /* background-color: var(--clickBackground); */
+    padding: 1.2vh 1.2vh 1.2vh 1.5vh;
+}
+
+.right .scroll .list .list_item{
+    background-color: transparent;
+    padding: 1.2vh 1.2vh 1.2vh 1.5vh;
+}
+
+.scroll .list li p{
+    font-size: 3vh;
+    color: white;
+}
+
+.scroll .list li a{
+    color: white;
+    min-height: 100%;
+    display: flex;
+    text-align: center;
+    font-size: 3.2vh;
+    background-color: transparent;
+}
+
+.scroll .list li a:hover{
+    background-color: black;
+}
+
+
+.enroll {
+    display: flex;
+    justify-content: center;
+}
+
+button.submit-login{
+    background: var(--buttonbackground);
+}
+
+button.submit-login:hover{
+    background: var(--buttonbackgroundHover);
+}
+
+.scroll .list .list_item {
+    border-radius: var(--radius);
+    font-size: larger;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.right .scroll .list .list_item a {
+    min-height: 100%;
+    padding: 2vh 5vh;
+    display: flex;
+    text-align: start;
+    font-size: 3.2vh;
+}

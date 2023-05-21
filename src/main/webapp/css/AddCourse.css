@@ -14,7 +14,7 @@
     --buttonbackgroundHover : rgb(2, 112, 185);
     --remToVH : 2.8vh;
     --bigtitleBackground : rgba(0,0,0,.8);
-}  
+} 
 
 ::-webkit-scrollbar {
     width: 15px;    
@@ -37,21 +37,37 @@
     background: rgba(26, 26, 26, 0.83);
 } */
 
+textarea {
+    background-color: var(--inputBackground);
+    border-radius: var(--radius);
+    border: none;
+    outline: none;
+    font-size:  calc(1*var(--remToVH));
+    padding: 1.5vh calc(1*var(--remToVH)) 1.5vh;
+    color:var(--linkTextHover);
+    text-align: justify;
+    resize: none;
+    width: calc(27*var(--remToVH));
 
-.box h2{
-    margin-bottom: 2vh;
 }
 
 .box {
-    padding: 8.5vh 15vh 10vh;
+    padding: calc(2*var(--remToVH)) calc(2*var(--remToVH)) calc(1.5*var(--remToVH));
+    gap: calc(1.8*var(--remToVH));
 }
 
-.row{
-    display: flex;
-    gap: 2vh;
+form {
+    gap: calc(.8*var(--remToVH));
 }
 
-.row p {
-    font-size: 3vh;
-    color: var(--bigTitle);
+.input-row{
+    gap: calc(.5*var(--remToVH));
+}
+
+.box h2{
+    font-size: calc(2*var(--remToVH));
+}
+
+button.submit-login{
+    margin: calc(.6*var(--remToVH)) calc(10*var(--remToVH)) 0;
 }

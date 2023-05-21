@@ -9,11 +9,11 @@ public class User {
 
 	public User() {
 		super();
-		name = "";
+		username = "";
 	}
 
 	public boolean isNull() {
-		return name.equals("");
+		return username.equals("");
 	}
 
 	public User(String name, String username, String password, String email, String userType) {

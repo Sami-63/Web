@@ -7,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import model.Course;
 import model.User;
@@ -18,7 +16,7 @@ public class DBController {
 
 	private Connection conn;
 	private String url = "jdbc:mysql://localhost:3306/web_project";
-	private String user = "root", password = "web1234%";
+	private String user = "root", password = "";
 
 	public DBController() {
 		try {
@@ -73,7 +71,6 @@ public class DBController {
 
 			conn.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -93,7 +90,6 @@ public class DBController {
 
 			conn.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -111,7 +107,6 @@ public class DBController {
 
 			conn.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -128,7 +123,6 @@ public class DBController {
 
 			conn.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -145,7 +139,6 @@ public class DBController {
 
 			conn.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -172,7 +165,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		}
@@ -200,7 +192,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return courseList;
@@ -228,7 +219,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return courseList;
@@ -255,7 +245,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -284,7 +273,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -308,7 +296,6 @@ public class DBController {
 			System.out.println("All tables deleted");
 			conn.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -332,7 +319,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -349,14 +335,13 @@ public class DBController {
 			ps.setString(1, course_id);
 			ResultSet rs = ps.executeQuery();
 
-			if(rs.next()) {
+			if (rs.next()) {
 				course.setCourseId(rs.getString(1));
 				course.setTitle(rs.getString(2));
 				course.setDescription(rs.getString(3));
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -382,7 +367,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -408,7 +392,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -441,7 +424,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -468,7 +450,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -496,7 +477,6 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -527,11 +507,52 @@ public class DBController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
 		return teacherList;
+	}
+
+	public boolean isTeachersCourse(String username, String courseId) {
+		String sql = "select * from users, teaches \n"
+				+ "where users.username = teaches.username \n"
+				+ "and course_id = ? and users.username = ?;";
+
+		try {
+			makeConn();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, courseId);
+			ps.setString(2, username);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next())
+				return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	public boolean isEmailExists(String email) {
+		String sql = "select * from users \n"
+				+ "where email = ?";
+
+		try {
+			makeConn();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next())
+				return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 	public static void main(String[] args) {
@@ -600,12 +621,13 @@ public class DBController {
 		// System.out.println(m.getKey() + " - " + m.getValue());
 		// }
 
-		List<User> list = dbc.getNotAssigedTeacher("101");
-		for (User c : list) {
-			System.out.println("name : " + c.getName() + " | username : " + c.getUsername());
-			System.out.println("email: " + c.getEmail());
-			System.out.println("");
-		}
+		// List<User> list = dbc.getNotAssigedTeacher("101");
+		// for (User c : list) {
+		// System.out.println("name : " + c.getName() + " | username : " +
+		// c.getUsername());
+		// System.out.println("email: " + c.getEmail());
+		// System.out.println("");
+		// }
 		// List<Course> list = dbc.getAssignedCourses("alom");
 		// for(Course c : list) {
 		// System.out.println("id : " + c.getCourseId() + " | title : " + c.getTitle());
@@ -624,7 +646,12 @@ public class DBController {
 		// System.out.println(c.getTitle());
 		// System.out.println(c.getDescription());
 		//
-		// System.out.println("All done");
+		User user = dbc.getUser("sami");
+		System.out.println("Name = " + user.getName() + " | Username = " + user.getUsername());
+		System.out.println("Email = " + user.getEmail() + " | password " + user.getPassword() + " | Usertype = "
+				+ user.getUserType());
+
+		System.out.println("All done " + dbc.isEmailExists("sam@gmail.com"));
 	}
 
 }

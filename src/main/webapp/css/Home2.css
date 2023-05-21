@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+:root {
+  --radius: 4vh;
+  --background: rgba(0, 0, 0, 0.83);
+  --inputBackground: rgb(43, 44, 46);
+  --clickBackground: rgba(21, 21, 23, 0.7);
+  --clickBackgroundHover: rgb(0, 0, 0);
+  --linkText: rgba(255, 255, 255, 0.6);
+  --linkTextHover: white;
+  --transition: all 0.3s ease;
+  --bigTitle: rgba(255, 255, 255, 0.85);
+  --buttonbackground: rgb(1, 68, 113);
+  --buttonbackgroundHover: rgb(2, 112, 185);
+  --remToVH: 2.8vh;
+  --bigtitleBackground: rgba(0, 0, 0, 0.8);
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #2b2b2b;
+  border: 0.3vh solid black;
+  border-radius: var(--radius);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: var(--radius);
+  background: black;
+  box-shadow: inset 0 0 0.25vh #fff;
+}
+
+/* ::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 26, 26, 0.83);
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
+  /* font-family: "Roboto" sans-serif; */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 5%;
+  justify-content: space-between;
+  height: fit-content;
+  align-items: center;
+}
+
+.container1,
+.container2 {
+  /* margin: 10px; */
+  margin: 1.5%;
+}
+
+.container1,
+.container1 ul,
+.container2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex: inherit;
+  gap: 20px;
+  font-size: calc(1.1 * var(--remToVH));
+}
+
+a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  background-color: var(--clickBackground);
+  text-decoration: none;
+  color: var(--linkText);
+  cursor: pointer;
+}
+
+.logo {
+  /* font-size: 1.35rem; */
+  font-size: calc(1.35 * var(--remToVH));
+  color: white;
+  margin-right: 1vh;
+  background-color: var(--clickBackground);
+  padding: 1.6vh 3vh;
+  border-radius: calc(var(--radius) * 2);
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  /* background-color: var(--clickBackground); */
+  /* padding: .5rem 1rem; */
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+li a {
+  height: calc(2 * var(--remToVH));
+  padding: 0 calc(1.5 * var(--remToVH));
+}
+
+.logo:hover,
+li a:hover {
+  background: var(--clickBackgroundHover);
+  color: var(--linkTextHover);
+}
+
+button {
+  background-color: var(--buttonbackground);
+  border: 0px;
+  outline: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: calc(var(--remToVH));
+  color: #cecece;
+  transition: var(--transition);
+  padding: calc(0.5 * var(--remToVH)) calc(1 * var(--remToVH));
+}
+
+button.login:hover,
+button.register:hover,
+button.logout:hover {
+  background-color: var(--buttonbackgroundHover);
+  color: #eeeeee;
+}
+
+.title {
+  margin: calc(1 * var(--remToVH)) calc(1 * var(--remToVH)) 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  background: var(--bigtitleBackground);
+  border-radius: var(--radius);
+  font-size: calc(4.5 * var(--remToVH));
+  font-weight: 100;
+  color: var(--bigTitle);
+}
+
+.title p:hover {
+  cursor: default;
+}
+
+.wrapper {
+  padding: calc(2 * var(--remToVH));
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--remToVH));
+}
+
+.wrapper .course,
+.wrapper .teacher {
+  padding: calc(2 * var(--remToVH));
+  border: 3px solid var(--clickBackgroundHover);
+  /* background-color: var(--clickBackground); */
+  border-radius: var(--radius);
+}
+
+.wrapper .course .first-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 2vh;
+}
+
+.wrapper .course .first-row a {
+  padding: 4vh;
+  height: 8vh;
+  background-color: var(--buttonbackground);
+  color: var(--linkText);
+  font-size: calc(1.6 * var(--remToVH));
+}
+
+.wrapper .course .first-row a:hover {
+  background-color: var(--buttonbackgroundHover);
+  color: white;
+}
+
+.wrapper h3 {
+  font-size: calc(2.5 * var(--remToVH));
+  padding-bottom: 2vh;
+  color: var(--bigTitle);
+  /* background-color: #484747; */
+}
+
+.wrapper h3:hover {
+  cursor: default;
+}
+
+.wrapper .row {
+  margin-top: 2vh;
+  padding: 2vh;
+  display: grid;
+  /* flex-wrap: wrap; */
+  /* justify-content:start; */
+  /* gap: 10vh; */
+  grid-template-columns: repeat(4, 1fr);
+  /* grid-auto-rows: auto; */
+  grid-gap: calc(2 * var(--remToVH));
+}
+
+.wrapper .row .item {
+  border-radius: var(--radius);
+  /* border: 2px solid var(--clickBackgroundHover); */
+  /* height: 5calc(2*var(--remToVH)); */
+  /* height: 100%; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* padding: 1vh; */
+  font-size: larger;
+  cursor: pointer;
+  transition: var(--transition);
+  /* background: black; */
+}
+
+.wrapper .row .item a {
+  /* min-height: calc(5*var(--remToVH)); */
+  min-height: 100%;
+  padding: 5vh;
+  display: flex;
+  text-align: center;
+  /* color: var(--linkTextHover);; */
+  /* color: white; */
+  font-size: 3.2vh;
+}
+
+.wrapper .teacher .item {
+  font-weight: 800;
+}
+
+.wrapper .row .item a:hover {
+  /* background: var(--linkText); */
+  background: var(--clickBackgroundHover);
+  color: var(--linkTextHover);
+}
+
+.displayName {
+  height: calc(2 * var(--remToVH));
+  padding: 2vh;
+  background-color: red;
+  color: black;
+  border-radius: calc(var(--radius) / 3);
+  font-weight: bold;
+}

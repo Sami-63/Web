@@ -40,22 +40,52 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <div class="rest">
       <div class="box">
         <h2>Register</h2>
-        <form action="Login" method="post">
+        <form action="Register" method="post">
           <div class="input-row">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value="${requestScope.username }"
+              required
+            />
+
+            <c:if test="${requestScope.registerUsernameError!= null }">
+              <div class="error">
+                <p>*${requestScope.registerUsernameError}</p>
+              </div>
+            </c:if>
           </div>
           <div class="input-row">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value="${requestScope.name }"
+              required
+            />
           </div>
           <div class="input-row">
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" />
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value="${requestScope.email }"
+              required
+            />
+
+            <c:if test="${requestScope.registerEmailFail!= null }">
+              <div class="error">
+                <p>*${requestScope.registerEmailFail}</p>
+              </div>
+            </c:if>
           </div>
           <div class="input-row">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" />
+            <input type="password" id="password" name="password" required />
           </div>
 
           <div class="check">

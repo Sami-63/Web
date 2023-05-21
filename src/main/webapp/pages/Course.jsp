@@ -6,154 +6,136 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   <head>
     <meta charset="UTF-8" />
     <title>Course</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="css/Home2.css" />
+    <link rel="stylesheet" href="css/Course.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <a class="navbar-brand mr-5" href="Home">Dream Academy</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="Course">Courses</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Teachers">Teachers</a>
-            </li>
-          </ul>
+    <nav class="container">
+      <div class="container1">
+        <a class="logo" href="Home">Dream Academy</a>
+        <ul class="">
+          <li class=""><a class="" href="Course">Courses</a></li>
+          <li class=""><a class="" href="Teachers">Teachers</a></li>
+        </ul>
+      </div>
 
-          <c:if test="${sessionScope.user == null }">
-            <form action="RedirectLogin" method="post">
-              <button class="btn btn-primary mx-3">Login</button>
-            </form>
-            <form action="RedirectRegister" method="post">
-              <button class="btn btn-outline-primary">Register</button>
-            </form>
-          </c:if>
+      <div class="container2">
+        <c:if test="${sessionScope.user == null }">
+          <form action="RedirectLogin" method="post">
+            <button class="login">Login</button>
+          </form>
+          <form action="RedirectRegister" method="post">
+            <button class="register">Register</button>
+          </form>
+        </c:if>
 
-          <c:if test="${sessionScope.user != null }">
-            <form action="Logout" method="post">
-              <button class="btn btn-outline-primary">Logout</button>
-            </form>
-          </c:if>
-        </div>
+        <c:if test="${sessionScope.user != null }">
+          <form action="Logout" method="post">
+            <button class="logout">Logout</button>
+          </form>
+        </c:if>
       </div>
     </nav>
 
-    <!--  -->
-
-    <div style="display: flex; justify-content: space-between">
-      <div class="col-9">
-        <div class="display-1">${requestScope.courseTitle }</div>
-        <p>${requestScope.courseDescription }</p>
+    <div class="screen">
+      <div class="child-screen left">
+        <!-- <p class="name">${requestScope.courseTitle }</p> -->
+        <p class="name">Structured Programming Language</p>
+        <!-- <p class="description">${requestScope.courseDescription }</p> -->
+        <p class="description">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </p>
 
         <c:if
           test="${ sessionScope.user != null &&  sessionScope.user.getUserType() == 'admin'}"
         >
-          <!-- <div>
-	        	<form action="RedirectTeacherAssign?course_id=${requestScope.courseId }" method="post">
-					<button class="btn btn-success">Assign Teacher</button>
-				</form>
-	        </div>
-	        -->
-
-          <div style="margin: 2rem 10rem; width: 60%">
-            <div>
-              <h3 style="padding-top: 5rem">Other Teachers</h3>
-              <ul class="list-group">
-                <c:forEach var="teacher" items="${otherTeachers }">
-                  <li
-                    class="list-group-item"
-                    style="
-                      display: flex;
-                      justify-content: space-between;
-                      align-items: center;
-                    "
+          <div class="scroll">
+            <h3>Other Teachers</h3>
+            <ul class="list">
+              <c:forEach var="teacher" items="${otherTeachers }">
+                <li class="list_item">
+                  <a>${teacher.getName() }</a>
+                  <form
+                    action="AssignTeacher?courseId=${ requestScope.courseId }&username=${teacher.getUsername() }"
+                    method="post"
                   >
-                    ${teacher.getName() }
-                    <form
-                      action="AssignTeacher?courseId=${ requestScope.courseId }&username=${teacher.getUsername() }"
-                      method="post"
-                    >
-                      <button type="submit" class="btn btn-success">
-                        Assign Teacher
-                      </button>
-                    </form>
-                  </li>
-                </c:forEach>
-              </ul>
-            </div>
+                    <button type="submit" class="submit-login">Assign</button>
+                  </form>
+                </li>
+              </c:forEach>
+            </ul>
           </div>
+          <!-- <div>
+                  <div>
+                      <h3 style="padding-top: 5rem">Other Teachers</h3>
+                      <ul class="list-group">
+                          <c:forEach var="teacher" items="${otherTeachers }">
+                              <li class="list-group-item" style="
+                                  display: flex;
+                                  justify-content: space-between;
+                                  align-items: center;
+                                  ">
+                                  ${teacher.getName() }
+                                  <form
+                                      action="AssignTeacher?courseId=${ requestScope.courseId }&username=${teacher.getUsername() }"
+                                      method="post">
+                                      <button type="submit" class="submit-login">
+                                          Assign Teacher
+                                      </button>
+                                  </form>
+                              </li>
+                          </c:forEach>
+                      </ul>
+                  </div>
+              </div> -->
         </c:if>
 
         <c:if test="${ requestScope.enrolled == false }">
-          <div>
+          <div class="enroll">
             <form
               action="EnrollCourse?courseId=${requestScope.courseId }"
               method="post"
             >
-              <button class="btn btn-success">Enroll Course</button>
+              <button class="submit-login">Enroll Course</button>
             </form>
           </div>
         </c:if>
+        
       </div>
-      <div class="col-2" style="margin-right: 50px">
-        <div>
-          <h3 style="padding-top: 5rem">Assigned Teachers</h3>
-          <ul class="list-group">
+      <div class="child-screen right">
+        <div class="scroll">
+          <h3>Assigned Teachers</h3>
+          <ul class="list">
             <c:forEach var="teacher" items="${requestScope.assignedTeachers}">
-              <li class="list-group-item">
-                <a
-                  href="Profile?username=${teacher.getUsername() }"
-                  style="
-                    margin: 0;
-                    padding: 0;
-                    text-decoration: none;
-                    color: black;
-                  "
-                >
+              <li class="list_item">
+                <a href="Profile?username=${teacher.getUsername() }">
                   ${teacher.getName() }
                 </a>
               </li>
             </c:forEach>
           </ul>
         </div>
+
         <c:if
-          test="${ sessionScope.user != null &&   sessionScope.user.getUserType() == 'teacher' || sessionScope.user.getUserType() == 'admin'}"
+          test="${ sessionScope.user != null &&  requestScope.showEnrolledStudents == true }"
         >
-          <div>
-            <h3 style="padding-top: 5rem">Enrolled Students</h3>
-            <ul class="list-group">
+          <div class="scroll">
+            <h3>Enrolled Students</h3>
+            <ul class="list">
               <c:forEach
                 var="student"
                 items="${requestScope.entolledStudents }"
               >
-                <li class="list-group-item">
-                  <a
-                    href="Profile?username=${student.getUsername() }"
-                    style="
-                      margin: 0;
-                      padding: 0;
-                      text-decoration: none;
-                      color: black;
-                    "
-                  >
+                <li class="list_item">
+                  <a href="Profile?username=${student.getUsername() }">
                     ${student.getName() }
                   </a>
                 </li>
