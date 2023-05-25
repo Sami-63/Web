@@ -36,25 +36,25 @@ public class Home extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("user");
 
 		if (user == null) {
-			request.setAttribute("courses", dbc.getAllCourses());
-			request.setAttribute("teachers", dbc.getAllTeachers());
+			request.setAttribute("courses", dbc.getAllCoursesDetails());
+			request.setAttribute("teachers", dbc.getAllTeacher());
 			request.getRequestDispatcher("pages/Home.jsp").forward(request, response);
 
 		} else if (user.getUserType().equals("student")) {
 
-			request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
-			request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
+			request.setAttribute("enrolledCourses", dbc.getRegisteredCoursesDetails(user.getUsername()));
+			request.setAttribute("otherCourses", dbc.getNotRegisteredCoursesDetails(user.getUsername()));
 			request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 
 		} else if (user.getUserType().equals("teacher")) {
 
-			request.setAttribute("assignedCourses", dbc.getAssignedCourses(user.getUsername()));
+			request.setAttribute("assignedCourses", dbc.getAssignedCoursesDetails(user.getUsername()));
 			request.getRequestDispatcher("pages/MyCourses.jsp").forward(request, response);
 
 		} else if (user.getUserType().equals("admin")) {
 
-			request.setAttribute("courses", dbc.getAllCourses());
-			request.setAttribute("teachers", dbc.getAllTeachers());
+			request.setAttribute("courses", dbc.getAllCoursesDetails());
+			request.setAttribute("teachers", dbc.getAllTeacher());
 			request.getRequestDispatcher("pages/Home.jsp").forward(request, response);
 
 		} else {

@@ -41,15 +41,15 @@ public class Course extends HttpServlet {
 
 		if (course_id == null || course_id.equals("")) {
 			System.out.println("redirecting to all courses");
-			request.setAttribute("courses", dbc.getAllCourses());
+			request.setAttribute("courses", dbc.getAllCoursesDetails());
 			request.getRequestDispatcher("pages/AllCourses.jsp").forward(request, response);
 		} else {
 			// get course
-			model.Course course = dbc.getCourse(course_id);
+			model.Course course = dbc.getCourseDetails(course_id);
 			request.setAttribute("courseId", course.getCourseId());
 			request.setAttribute("courseTitle", course.getTitle());
 			request.setAttribute("courseDescription", course.getDescription());
-			request.setAttribute("assignedTeachers", dbc.getCourseTeachers(course_id));
+			request.setAttribute("assignedTeachers", dbc.getCourseTeachersNameAndUsername(course_id));
 
 			User user = (User) request.getSession().getAttribute("user");
 			if (user == null)
@@ -61,12 +61,13 @@ public class Course extends HttpServlet {
 				;
 			else if (user.getUserType().equals("teacher")) {
 				System.out.println("in course - teacher");
-				request.setAttribute("entolledStudents", dbc.getEnrolledStudents(course_id));
-				request.setAttribute("showEnrolledStudents", dbc.isTeachersCourse(user.getUsername(), course_id));
+				request.setAttribute("entolledStudents", dbc.getEnrolledStudentsNameAndUsername(course_id));
+				request.setAttribute("showEnrolledStudents", dbc.isTeachesCourse(user.getUsername(), course_id));
 			} else if (user.getUserType().equals("student")) {
 				System.out.println("in course - student");
 				boolean flag = false;
-				List<model.Course> courseList = dbc.getStudentCourses(user.getUsername());
+				List<model.Course> courseList = dbc
+						.getAllCoursesDetailsRegisteredByStudent(user.getUsername());
 				for (model.Course c : courseList)
 					if (c.getCourseId().equals(course_id)) {
 						flag = true;
@@ -76,7 +77,7 @@ public class Course extends HttpServlet {
 				request.setAttribute("enrolled", flag);
 			} else if (user.getUserType().equals("admin")) {
 				System.out.println("in course - admin");
-				request.setAttribute("entolledStudents", dbc.getEnrolledStudents(course_id));
+				request.setAttribute("entolledStudents", dbc.getEnrolledStudentsNameAndUsername(course_id));
 				request.setAttribute("otherTeachers", dbc.getNotAssigedTeacher(course_id));
 				request.setAttribute("showEnrolledStudents", true);
 			}

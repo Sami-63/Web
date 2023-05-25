@@ -35,15 +35,15 @@ public class AssignTeacher extends HttpServlet {
 		String username = request.getParameter("username");
 
 		DBController dbc = new DBController();
-		dbc.assignTeacherToCourse(username, courseId);
-		request.setAttribute("entolledStudents", dbc.getEnrolledStudents(courseId));
+		dbc.assignCourseToTeacher(username, courseId);
+		request.setAttribute("entolledStudents", dbc.getEnrolledStudentsNameAndUsername(courseId));
 		request.setAttribute("otherTeachers", dbc.getNotAssigedTeacher(courseId));
-		
-		model.Course course = dbc.getCourse(courseId);
+
+		model.Course course = dbc.getCourseDetails(courseId);
 		request.setAttribute("courseId", course.getCourseId());
 		request.setAttribute("courseTitle", course.getTitle());
 		request.setAttribute("courseDescription", course.getDescription());
-		request.setAttribute("assignedTeachers", dbc.getCourseTeachers(courseId));
+		request.setAttribute("assignedTeachers", dbc.getCourseTeachersNameAndUsername(courseId));
 		request.getRequestDispatcher("/pages/Course.jsp").forward(request, response);
 	}
 

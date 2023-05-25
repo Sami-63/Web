@@ -31,20 +31,20 @@ public class CreateCourse extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		System.out.println("in create COurse");
-		
+
 		String courseId = request.getParameter("courseId");
 		String courseTitle = request.getParameter("courseTitle");
 		String courseDescription = request.getParameter("courseDescription");
 
 		DBController dbc = new DBController();
-		model.Course course = dbc.getCourse(courseId);
-		
-		if(course == null || course.isNull()){
-			dbc.addCourse(courseId, courseTitle, courseDescription);
+		model.Course course = dbc.getCourseDetails(courseId);
+
+		if (course == null || course.isNull()) {
+			dbc.createNewCourse(courseId, courseTitle, courseDescription);
 			request.getRequestDispatcher("Home").forward(request, response);
-		}else {
+		} else {
 			request.getRequestDispatcher("pages/CreateCourse.jsp").forward(request, response);
 		}
 	}

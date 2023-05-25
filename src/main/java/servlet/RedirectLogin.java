@@ -39,13 +39,13 @@ public class RedirectLogin extends HttpServlet {
 		} else if (user.getUserType().equals("Student")) {
 
 			DBController dbc = new DBController();
-			request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
-			request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
+			request.setAttribute("enrolledCourses", dbc.getRegisteredCoursesDetails(user.getUsername()));
+			request.setAttribute("otherCourses", dbc.getNotRegisteredCoursesDetails(user.getUsername()));
 			request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 		} else if (user.getUserType().equals("Teachers")) {
 
 			DBController dbc = new DBController();
-			request.setAttribute("assignedCourses", dbc.getAssignedCourses(user.getUsername()));
+			request.setAttribute("assignedCourses", dbc.getAssignedCoursesDetails(user.getUsername()));
 			request.getRequestDispatcher("pages/MyCourses.jsp").forward(request, response);
 		} else if (user.getUserType().equals("Admin")) {
 			// redirect to admin portal

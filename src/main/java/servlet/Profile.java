@@ -35,7 +35,7 @@ public class Profile extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = (String) request.getParameter("username");
-		User user = dbc.getUser(username);
+		User user = dbc.getUserDetails(username);
 		System.out.println("-> " + username);
 
 		request.setAttribute("name", user.getName());

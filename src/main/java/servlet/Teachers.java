@@ -34,7 +34,7 @@ public class Teachers extends HttpServlet {
 
 		// get all teacher and set it to attribute and forward
 		DBController dbc = new DBController();
-		request.setAttribute("teachers", dbc.getAllTeachers());
+		request.setAttribute("teachers", dbc.getAllTeacher());
 		request.getRequestDispatcher("pages/Teachers.jsp").forward(request, response);
 	}
 

@@ -33,7 +33,7 @@ public class Register extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("-> in register");
-		
+
 		String name = request.getParameter("name");
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
@@ -41,56 +41,56 @@ public class Register extends HttpServlet {
 		String usertype = request.getParameter("usertype");
 
 		System.out.println("username -> " + username + " | \n");
-		System.out.println("name -> " + name  + " | \n");
-		System.out.println("email -> " + email  + " | \n");
-		System.out.println("password -> " + password  + " | \n");
-		System.out.println("usertype -> " + usertype  + " | \n");
-		
-		
-		if(name == null || username == null || email == null || password == null || usertype == null || 
-			name.equals("") || username.equals("") || email.equals("") || password.equals("") || usertype.equals("")) {
-			
+		System.out.println("name -> " + name + " | \n");
+		System.out.println("email -> " + email + " | \n");
+		System.out.println("password -> " + password + " | \n");
+		System.out.println("usertype -> " + usertype + " | \n");
+
+		if (name == null || username == null || email == null || password == null || usertype == null ||
+				name.equals("") || username.equals("") || email.equals("") || password.equals("")
+				|| usertype.equals("")) {
+
 			request.setAttribute("username", username);
 			request.setAttribute("email", email);
 			request.setAttribute("name", name);
-			
+
 			request.getRequestDispatcher("RedirectRegister").forward(request, response);
 			return;
 		}
-		
+
 		DBController dbc = new DBController();
-		User user = dbc.getUser(username);
+		User user = dbc.getUserDetails(username);
 		boolean emailError = dbc.isEmailExists(email);
-			
+
 		user.show();
-		
+
 		System.out.println("email error -> " + emailError);
 		System.out.println("user == null -> " + (user == null));
 		System.out.println("user.isNull() -> " + (user.isNull()));
-	
+
 		if ((user == null || user.isNull()) && emailError == false) {
 			System.out.println("user banaitesi");
-			dbc.addUser(name, username, password, email, usertype);
+			dbc.addNewUser(name, username, password, email, usertype);
 
-			user = dbc.getUser(username);
+			user = dbc.getUserDetails(username);
 			HttpSession session = request.getSession(false);
 			session.setAttribute("user", user);
-			
+
 			if (user.getUserType().equals("student")) {
 
-				request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
-				request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
+				request.setAttribute("enrolledCourses", dbc.getRegisteredCoursesDetails(user.getUsername()));
+				request.setAttribute("otherCourses", dbc.getNotRegisteredCoursesDetails(user.getUsername()));
 				request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 
 			} else if (user.getUserType().equals("teacher")) {
 
-				request.setAttribute("assignedCourses", dbc.getAssignedCourses(user.getUsername()));
+				request.setAttribute("assignedCourses", dbc.getAssignedCoursesDetails(user.getUsername()));
 				request.getRequestDispatcher("pages/MyCourses.jsp").forward(request, response);
 
 			} else if (user.getUserType().equals("admin")) {
 
-				request.setAttribute("courses", dbc.getAllCourses());
-				request.setAttribute("teachers", dbc.getAllTeachers());
+				request.setAttribute("courses", dbc.getAllCoursesDetails());
+				request.setAttribute("teachers", dbc.getAllTeacher());
 				request.getRequestDispatcher("pages/Home.jsp").forward(request, response);
 
 			} else {
@@ -100,9 +100,9 @@ public class Register extends HttpServlet {
 			request.setAttribute("username", username);
 			request.setAttribute("email", email);
 			request.setAttribute("name", name);
-			if(emailError)
+			if (emailError)
 				request.setAttribute("registerEmailFail", "This email is already registered by another user");
-			if( user.isNull() == false)
+			if (user.isNull() == false)
 				request.setAttribute("registerUsernameError", "Username already exixts!");
 			request.getRequestDispatcher("pages/Register.jsp").forward(request, response);
 		}

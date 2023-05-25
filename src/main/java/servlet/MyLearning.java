@@ -39,8 +39,8 @@ public class MyLearning extends HttpServlet {
 		user.show();
 
 		if (user.getUserType().equals("student")) {
-			request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
-			request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
+			request.setAttribute("enrolledCourses", dbc.getRegisteredCoursesDetails(user.getUsername()));
+			request.setAttribute("otherCourses", dbc.getNotRegisteredCoursesDetails(user.getUsername()));
 			request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 		}
 

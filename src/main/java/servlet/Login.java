@@ -37,30 +37,30 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		System.out.println("-> " + username + " " + password + " " + dbc.checkLogin(username, password));
+		System.out.println("-> " + username + " " + password + " " + dbc.validUsernameAndPassword(username, password));
 
-		if (dbc.checkLogin(username, password)) {
-			User user = dbc.getUser(username);
+		if (dbc.validUsernameAndPassword(username, password)) {
+			User user = dbc.getUserDetails(username);
 			HttpSession session = request.getSession(false);
 			session.setAttribute("user", user);
 
-			if (user.getUserType().equals("student")) {
+			if (user.getUserDetailsType().equals("student")) {
 				System.out.println("redirecting to MyLearning");
-				request.setAttribute("enrolledCourses", dbc.getRegisteredCourses(user.getUsername()));
-				request.setAttribute("otherCourses", dbc.getNotRegisteredCourses(user.getUsername()));
+				request.setAttribute("enrolledCourses", dbc.getRegisteredCoursesDetails(user.getUsername()));
+				request.setAttribute("otherCourses", dbc.getNotRegisteredCoursesDetails(user.getUsername()));
 				request.getRequestDispatcher("pages/MyLearning.jsp").forward(request, response);
 			} else if (user.getUserType().equals("teacher")) {
-				request.setAttribute("assignedCourses", dbc.getAssignedCourses(user.getUsername()));
+				request.setAttribute("assignedCourses", dbc.getAssignedCoursesDetails(user.getUsername()));
 				request.getRequestDispatcher("pages/MyCourses.jsp").forward(request, response);
 			} else if (user.getUserType().equals("admin")) {
 				request.getRequestDispatcher("Home").forward(request, response);
 			}
 
 		} else {
-			User user = dbc.getUser(username);
+			User user = dbc.getUserDetails(username);
 			request.setAttribute("username", username);
 			user.show();
-			if(user.isNull())
+			if (user.isNull())
 				request.setAttribute("loginFailMessage", "username doesn't exists");
 			else
 				request.setAttribute("loginFailMessage", "incorrect password");
