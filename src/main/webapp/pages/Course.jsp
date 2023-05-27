@@ -30,6 +30,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         </c:if>
 
         <c:if test="${sessionScope.user != null }">
+          <a
+            href="Profile?username=${sessionScope.user.getUsername() }"
+            class="displayName"
+          >
+            ${sessionScope.user.getUsername() }
+          </a>
           <form action="Logout" method="post">
             <button class="logout">Logout</button>
           </form>
@@ -39,20 +45,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <div class="screen">
       <div class="child-screen left">
-        <!-- <p class="name">${requestScope.courseTitle }</p> -->
-        <p class="name">Structured Programming Language</p>
-        <!-- <p class="description">${requestScope.courseDescription }</p> -->
-        <p class="description">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </p>
+        <p class="name">${requestScope.courseTitle }</p>
+        <p class="description">${requestScope.courseDescription }</p>
 
         <c:if
           test="${ sessionScope.user != null &&  sessionScope.user.getUserType() == 'admin'}"
@@ -73,29 +67,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
               </c:forEach>
             </ul>
           </div>
-          <!-- <div>
-                  <div>
-                      <h3 style="padding-top: 5rem">Other Teachers</h3>
-                      <ul class="list-group">
-                          <c:forEach var="teacher" items="${otherTeachers }">
-                              <li class="list-group-item" style="
-                                  display: flex;
-                                  justify-content: space-between;
-                                  align-items: center;
-                                  ">
-                                  ${teacher.getName() }
-                                  <form
-                                      action="AssignTeacher?courseId=${ requestScope.courseId }&username=${teacher.getUsername() }"
-                                      method="post">
-                                      <button type="submit" class="submit-login">
-                                          Assign Teacher
-                                      </button>
-                                  </form>
-                              </li>
-                          </c:forEach>
-                      </ul>
-                  </div>
-              </div> -->
         </c:if>
 
         <c:if test="${ requestScope.enrolled == false }">
@@ -108,7 +79,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             </form>
           </div>
         </c:if>
-        
       </div>
       <div class="child-screen right">
         <div class="scroll">

@@ -92,7 +92,7 @@ public class DBController {
 	 * @param username - username of the user given by user
 	 * @param pass     - password of the account
 	 * @param email    - email of the user
-	 * @param type     - user type (must be amoung "student", "teacher" and "admin")
+	 * @param type     - user type (must be among "student", "teacher" and "admin")
 	 */
 	public void addNewUser(String name, String username, String pass, String email, String type) {
 		String queryMould = "insert into users values(?, ?, ?, ?, ?);";
@@ -144,7 +144,7 @@ public class DBController {
 	 * 'username' of the teacher and 'course_id' of that course to the 'teaches'
 	 * table in database
 	 * 
-	 * @param username  - username of the teacher who is going to take a course
+	 * @param username  - username of the teacher who is going to take the course
 	 * @param course_id - course id of the course which will be assinged to a
 	 *                  teacher
 	 */
@@ -369,24 +369,24 @@ public class DBController {
 	}
 
 	// private void deleteDB() {
-	// 	String deleteUsersTable = "drop table users;";
-	// 	String deleteCourseTable = "drop table course;";
-	// 	String deleteTakesTable = "drop table takes;";
-	// 	String deleteTeachesTable = "drop table teaches;";
+	// String deleteUsersTable = "drop table users;";
+	// String deleteCourseTable = "drop table course;";
+	// String deleteTakesTable = "drop table takes;";
+	// String deleteTeachesTable = "drop table teaches;";
 
-	// 	try {
-	// 		makeConnection();
-	// 		Statement query = connection.createStatement();
-	// 		query.execute(deleteTakesTable);
-	// 		query.execute(deleteTeachesTable);
-	// 		query.execute(deleteUsersTable);
-	// 		query.execute(deleteCourseTable);
+	// try {
+	// makeConnection();
+	// Statement query = connection.createStatement();
+	// query.execute(deleteTakesTable);
+	// query.execute(deleteTeachesTable);
+	// query.execute(deleteUsersTable);
+	// query.execute(deleteCourseTable);
 
-	// 		System.out.println("All tables deleted");
-	// 		connection.close();
-	// 	} catch (Exception e) {
-	// 		e.printStackTrace();
-	// 	}
+	// System.out.println("All tables deleted");
+	// connection.close();
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
 	// }
 
 	/**
@@ -658,11 +658,12 @@ public class DBController {
 	}
 
 	/**
-	 * this fucntion checks wheater a particular teaches teaches a particular course or not
+	 * this fucntion checks wheater a particular teaches teaches a particular course
+	 * or not
 	 * 
-	 * @param username 	- username of a teacher
-	 * @param course_id	- course id fo a course
-	 * @return - true, if the teacher teaches that course 
+	 * @param username  - username of a teacher
+	 * @param course_id - course id fo a course
+	 * @return - true, if the teacher teaches that course
 	 * @return - false, if the teacher does not teach the course
 	 */
 	public boolean isTeachesCourse(String username, String course_id) {

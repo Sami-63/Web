@@ -55,3 +55,17 @@
     font-size: 3vh;
     color: var(--bigTitle);
 }
+
+.displayName {
+  height: calc(2 * var(--remToVH));
+  padding: 2vh;
+  background-color: #111214;
+  color: #dbdee1;
+  border-radius: calc(var(--radius) / 3);
+  font-weight: bold;
+}
+
+.displayName:hover {
+  background-color: white;
+  color: black;
+}

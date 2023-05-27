@@ -30,6 +30,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         </c:if>
 
         <c:if test="${sessionScope.user != null }">
+          <a
+            href="Profile?username=${sessionScope.user.getUsername() }"
+            class="displayName"
+          >
+            ${sessionScope.user.getUsername() }
+          </a>
           <form action="Logout" method="post">
             <button class="logout">Logout</button>
           </form>

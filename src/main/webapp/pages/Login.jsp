@@ -30,6 +30,12 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         </c:if>
 
         <c:if test="${sessionScope.user != null }">
+          <a
+            href="Profile?username=${sessionScope.user.getUsername() }"
+            class="displayName"
+          >
+            ${sessionScope.user.getUsername() }
+          </a>
           <form action="Logout" method="post">
             <button class="logout">Logout</button>
           </form>
@@ -43,19 +49,24 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <form action="Login" method="post">
           <div class="input-row">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="${requestScope.username }"/>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value="${requestScope.username }"
+            />
           </div>
           <div class="input-row">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" />
-            
+
             <c:if test="${requestScope.loginFailMessage != null }">
-	          	<div class="error">
-	          		<p>*${requestScope.loginFailMessage}</p>
-	        	</div>
-          	</c:if>
+              <div class="error">
+                <p>*${requestScope.loginFailMessage}</p>
+              </div>
+            </c:if>
           </div>
-          
+
           <button type="submit" class="submit-login"><p>Login</p></button>
         </form>
       </div>

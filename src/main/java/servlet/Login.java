@@ -44,7 +44,7 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("user", user);
 
-			if (user.getUserDetailsType().equals("student")) {
+			if (user.getUserType().equals("student")) {
 				System.out.println("redirecting to MyLearning");
 				request.setAttribute("enrolledCourses", dbc.getRegisteredCoursesDetails(user.getUsername()));
 				request.setAttribute("otherCourses", dbc.getNotRegisteredCoursesDetails(user.getUsername()));
